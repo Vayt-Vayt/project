@@ -6,8 +6,7 @@ const MyPosts = () => {
         <div>
              <div>My post</div>
         <div>New post</div>
-        <Posts />
-       
+        <Posts message={'yous'}/>
         </div>
     );
 };
