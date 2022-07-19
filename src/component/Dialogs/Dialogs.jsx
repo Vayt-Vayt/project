@@ -1,38 +1,16 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import DialogItem from "./DialogItem/DialogsItem";
 import classes from "./Dialogs.module.css";
+import Message from "./Message/Message";
 
-const DialogIten = (props) => {
-  const clas = (navData) =>
-    navData.isActive ? classes.active : classes.dialog;
-  return (
-    <div className={classes.dialog}>
-      <NavLink to={`/dialogs/${props.id}`} className={clas}>
-        {props.name}
-      </NavLink>
-    </div>
-  );
-};
 
-const Message = (props) => {
-  return <div className={classes.message}>{props.mess}</div>;
-};
 
 const Dialogs = (props) => {
-  const dialogsData = [
-    { id: 1, name: "Dima" },
-    { id: 2, name: "Dasha" },
-    { id: 3, name: "Misha" },
-  ];
-
-  const messageData = [
-    { id: 1, mess: "Hi" },
-    { id: 2, mess: "Hellow" },
-    { id: 3, mess: "Yo" },
-  ];
+  const dialogsData = props.messagesPage.dialogsData
+  const messageData = props.messagesPage.messageData
 
   const dialogsElement = dialogsData.map((dialog, index) => (
-    <DialogIten key={index} name={dialog.name} id={dialog.id} />
+    <DialogItem key={index} name={dialog.name} id={dialog.id} />
   ));
 
   const messagesElement = messageData.map((message, index) => (

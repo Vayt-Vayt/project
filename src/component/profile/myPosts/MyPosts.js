@@ -2,13 +2,8 @@ import React from 'react';
 import Posts from './post/Posts';
 import classes from './MyPost.module.css'
 
-const MyPosts = () => {
-    const PostData = [
-        { id: 1, message: 'Dima', LikesCount: 12 },
-        { id: 2, message: 'Dasha', LikesCount: 10 },
-        { id: 3, message: 'Misha', LikesCount: 11 }
-    ]
-
+const MyPosts = (props) => {
+    const PostData = props.postData
     const PostsElements = PostData.map((post, index) =>
         <Posts
             key={index}
@@ -18,15 +13,23 @@ const MyPosts = () => {
         />
     )
 
+    let newPostElement = React.createRef()
+
+    const addPost = (event) => {
+        event.preventDefault()
+        let text = newPostElement.current.value
+        alert(text)
+    }
+
     return (
         <div>
             <div className={classes.myPost}>My post</div>
             <div>
                 <h3>New post</h3>
             </div>
-            <form action='false'>
+            <form action='false' onSubmit={addPost}>
                 <div>
-                    <textarea></textarea>
+                    <textarea ref={newPostElement}></textarea>
                 </div>
                 <button type='sybmit'>Add post</button>
             </form>
