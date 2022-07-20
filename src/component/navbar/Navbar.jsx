@@ -5,7 +5,7 @@ import classes from './Navbar.module.css'
 const Navbar = (props) => {
   const clas = navData => navData.isActive ? classes.active : classes.item;
   const friends = props.state.myfriends.map(friend => (
-    <div className={classes.user}>
+    <div className={classes.user} key={friend.id}>
       <img className={classes.icon} alt='icon user' src={friend.icon}/>
         <span>{friend.name}</span>
     </div>

@@ -1,9 +1,13 @@
 import React from 'react';
 import Posts from './post/Posts';
 import classes from './MyPost.module.css'
+import { addPostsCeator, postsCeator } from '../../redux/reduser_profilePage';
+
+
+
 
 const MyPosts = (props) => {
-    const PostData = props.postData
+    const PostData = props.profilePage.postData
     const PostsElements = PostData.map((post, index) =>
         <Posts
             key={index}
@@ -15,10 +19,14 @@ const MyPosts = (props) => {
 
     let newPostElement = React.createRef()
 
-    const addPost = (event) => {
+    const addPosts = (event) => {
         event.preventDefault()
+        props.dispatch(addPostsCeator())
+    }
+
+    const onPostChange = () => {
         let text = newPostElement.current.value
-        alert(text)
+        props.dispatch(postsCeator(text))
     }
 
     return (
@@ -27,11 +35,15 @@ const MyPosts = (props) => {
             <div>
                 <h3>New post</h3>
             </div>
-            <form action='false' onSubmit={addPost}>
+            <form action='false' onSubmit={addPosts}>
                 <div>
-                    <textarea ref={newPostElement}></textarea>
+                    <textarea 
+                        onChange={onPostChange} 
+                        ref={newPostElement}
+                        value={props.profilePage.newPostText}
+                    />
                 </div>
-                <button type='sybmit'>Add post</button>
+                <button  type='sybmit'>Add post</button>
             </form>
             {PostsElements}
         </div>
