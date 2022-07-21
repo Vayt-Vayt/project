@@ -12,7 +12,7 @@ const mapDispatchToProps = (dispatch) => ({
     updateNewPostText: (text) => {
         dispatch(postsCeator(text))
     },
-    addPosts: () => {
+    addPost: () => {
         dispatch(addPostsCeator())
     },
 })

@@ -19,15 +19,20 @@ const initialState = {
 }
 
 const messagePageReducer = (state = initialState, action) => {
+
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:
-            state.newMessageBody = action.payload
-            return state;
+            return {
+                ...state,
+                newMessageBody: action.payload
+            }
         case SEND_MESSAGE:
             const body = state.newMessageBody
-            state.messageData.push({ id: 5, mess: body })
-            state.newMessageBody = ''
-            return state;
+            return {
+                ...state,
+                messageData: [...state.messageData, { id: 5, mess: body }],
+                newMessageBody: ''
+            }
         default:
             return state;
     }
@@ -36,7 +41,7 @@ const messagePageReducer = (state = initialState, action) => {
 }
 
 export const sendMessegeCeator = (body) => ({
-    type: UPDATE_NEW_MESSAGE_BODY, 
+    type: UPDATE_NEW_MESSAGE_BODY,
     payload: body
 })
 

@@ -9,19 +9,24 @@ const initialState = {
         { id: 2, message: 'Dasha', LikesCount: 10 },
         { id: 3, message: 'Misha', LikesCount: 11 }
     ],
-    newPostText: 'Hi'
+    newPostText: ''
 }
 
 const profilePageReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST:
             const text = { id: 5, message: state.newPostText, LikesCount: 0 }
-            state.postData.push(text)
-            state.newPostText = ''
-            return state;
+            return  {
+                ...state,
+                postData: [...state.postData, text],
+                newPostText: ''
+            }
+             
         case UPDATE_NEW_POST_TEXT:
-            state.newPostText = action.payload;
-            return state;
+            return {
+                ...state,
+                newPostText: action.payload
+            }
         default:
             return state;
     }
@@ -33,7 +38,7 @@ export const addPostsCeator = () => ({
 })
 
 export const postsCeator = (text) => ({
-    type: UPDATE_NEW_POST_TEXT, 
+    type: UPDATE_NEW_POST_TEXT,
     payload: text
 })
 
