@@ -8,13 +8,13 @@ import Music from './component/music/Music';
 import Settings from './component/setings/Settings';
 import DialogsContainer from './component/Dialogs/DialogsContainer';
 import NavbarContainer from './component/navbar/NavbarContainer';
+import UsersContainer from './component/Users/UsersContainer';
 
 function App(props) {
   return (
     <div className='app-wrapper'>
       <Header />
       <NavbarContainer />
-     
       <div className="app-wrapper-content">
         <Routes>
           <Route
@@ -30,6 +30,7 @@ function App(props) {
           <Route path='/news' element={<News />} />
           <Route path='/music' element={<Music />} />
           <Route path='/setings' element={<Settings />} />
+          <Route path='/users' element={<UsersContainer />} />
         </Routes>
       </div>
     </div>
