@@ -4,7 +4,21 @@
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
 const SEND_MESSAGE = 'SEND_MESSAGE';
 
-const messagePageReducer = (state, action) => {
+const initialState = {
+    dialogsData: [
+        { id: 1, name: "Dima" },
+        { id: 2, name: "Dasha" },
+        { id: 3, name: "Misha" },
+    ],
+    messageData: [
+        { id: 1, mess: "Hi" },
+        { id: 2, mess: "Hellow" },
+        { id: 3, mess: "Yo" },
+    ],
+    newMessageBody: ''
+}
+
+const messagePageReducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:
             state.newMessageBody = action.payload

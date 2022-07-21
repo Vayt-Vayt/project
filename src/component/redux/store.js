@@ -1,6 +1,6 @@
-import messagePageReducer from "./reducer_messagePage";
+/* import messagePageReducer from "./reducer_messagePage";
 import sadebarReducer from "./reducer_sadebar";
-import profilePageReducer from "./reduser_profilePage";
+import profilePageReducer from "./reducer_profilePage";
 
 
 export let store = {
@@ -70,3 +70,4 @@ export let store = {
     }
 
 }
+ */

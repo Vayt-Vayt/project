@@ -1,13 +1,12 @@
 import React from 'react';
 import Posts from './post/Posts';
 import classes from './MyPost.module.css'
-import { addPostsCeator, postsCeator } from '../../redux/reduser_profilePage';
 
 
 
 
 const MyPosts = (props) => {
-    const PostData = props.profilePage.postData
+    const PostData = props.postData
     const PostsElements = PostData.map((post, index) =>
         <Posts
             key={index}
@@ -21,12 +20,12 @@ const MyPosts = (props) => {
 
     const addPosts = (event) => {
         event.preventDefault()
-        props.dispatch(addPostsCeator())
+        props.addPost()
     }
 
     const onPostChange = () => {
         let text = newPostElement.current.value
-        props.dispatch(postsCeator(text))
+        props.updateNewPostText(text)
     }
 
     return (
@@ -40,7 +39,7 @@ const MyPosts = (props) => {
                     <textarea 
                         onChange={onPostChange} 
                         ref={newPostElement}
-                        value={props.profilePage.newPostText}
+                        value={props.newPostText}
                     />
                 </div>
                 <button  type='sybmit'>Add post</button>

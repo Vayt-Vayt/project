@@ -2,17 +2,18 @@ import React from 'react';
 import  ReactDom  from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import { store } from './component/redux/state';
+import store from './component/redux/redux_store';
+import {Provider} from 'react-redux'
 
-
-export const renderUI = (state) => {
+export const renderUI = () => {
     ReactDom.render(
        <BrowserRouter>
-           <App state={state}  dispatch={store.dispatch.bind(store)} />
+        <Provider store={store}>
+            <App />
+        </Provider>
        </BrowserRouter>,
        document.getElementById('root')
    );
    }
 
-renderUI(store.getState())
-store.subscribe(renderUI)
+renderUI()

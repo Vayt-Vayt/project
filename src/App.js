@@ -1,33 +1,30 @@
 import React from 'react'
 import './App.css';
-import Dialogs from './component/Dialogs/Dialogs';
 import Header from './component/header/Header';
-import Navbar from './component/navbar/Navbar';
 import Profile from './component/profile/Profile';
 import { Route, Routes } from 'react-router-dom';
 import News from './component/news/News';
 import Music from './component/music/Music';
 import Settings from './component/setings/Settings';
+import DialogsContainer from './component/Dialogs/DialogsContainer';
+import NavbarContainer from './component/navbar/NavbarContainer';
 
 function App(props) {
   return (
     <div className='app-wrapper'>
       <Header />
-      <Navbar state={props.state.sadebar}/>
+      <NavbarContainer />
+     
       <div className="app-wrapper-content">
         <Routes>
           <Route
             path='/profile'
             element={<Profile
-              profilePage={props.state.profilePage}
-              dispatch={props.dispatch}
             />}
           />
           <Route
             path='/dialogs'
-            element={<Dialogs
-              messagesPage={props.state.messagesPage}
-              dispatch={props.dispatch}
+            element={<DialogsContainer
             />}
           />
           <Route path='/news' element={<News />} />
