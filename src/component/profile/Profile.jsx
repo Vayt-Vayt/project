@@ -4,10 +4,9 @@ import classes from "./Profile.module.css";
 import ProfileInfo from "./profile/ProfileInfo";
 
 const Profile = (props) => {
-
   return (
     <main className={classes.content}>
-      <ProfileInfo />
+      <ProfileInfo profile={props.profile} />
       <MyPostsContainer 
         store={props.store}
       />

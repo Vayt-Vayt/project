@@ -20,6 +20,9 @@ const Navbar = (props) => {
             <NavLink to='/dialogs' className={ clas } >Dialogs</NavLink>
           </div>
           <div className={classes.item}>
+            <NavLink to='/users' className={ clas } >Users</NavLink>
+          </div>
+          <div className={classes.item}>
             <NavLink to='/news' className={ clas } >News</NavLink>
           </div>
           <div className={classes.item}>
@@ -28,6 +31,7 @@ const Navbar = (props) => {
           <div className={classes.item}>
             <NavLink to='/setings' className={ clas } >Setings</NavLink>
           </div>
+        
           <div className={classes.item}>
             <NavLink to='/friends' className={ clas } >friends</NavLink>
             <div className={classes.userContent}>

@@ -1,7 +1,11 @@
 import React from "react";
+import Loader from "../../common/PreLoader/Loader";
 import classes from "./ProfileInfo.module.css";
 
-const ProfileInfo = () => {
+const ProfileInfo = (props) => {
+  if (!props.profile) {
+    return <Loader />;
+  }
   return (
     <div>
       <div>
@@ -10,6 +14,7 @@ const ProfileInfo = () => {
           alt="картинка"
         />
       </div>
+      <img  src={props.profile.photos.large} alt="icon" />
       <div className={classes.description}>ava + description</div>
     </div>
   );

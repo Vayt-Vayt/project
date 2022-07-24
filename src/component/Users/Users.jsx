@@ -1,59 +1,75 @@
 import React from "react";
 import classes from "./User.module.css";
+import userPxoto from "../../assets/images/users.jpg";
+import { NavLink } from "react-router-dom";
+import { userAPI } from "../api/api";
 
 const Users = (props) => {
-    if (props.users.length === 0) {
-        props.setUsers([
-        {
-            id: 1, 
-             fullName: "Misha", 
-             status: "I am boss", 
-             location: {sity: 'Minsk', country: 'Jupan'},
-             followed: true,
-             pgotoUrl: 'https://i.pinimg.com/736x/11/11/9b/11119b4215f6dd58285129f522c22f23.jpg'
-         },
-         {
-             id: 2, 
-             fullName: "Masha", 
-             status: "I am good", 
-             location: {sity: 'Moscov', country: 'null'},
-             followed: true,
-             pgotoUrl: 'https://i.pinimg.com/736x/11/11/9b/11119b4215f6dd58285129f522c22f23.jpg'
-         },        {
-             id: 3, 
-             fullName: "Sisha", 
-             status: "I am BOSS!!!", 
-             location: {sity: 'Vologda', country: 'One'},
-             followed: false,
-             pgotoUrl: 'https://i.pinimg.com/736x/11/11/9b/11119b4215f6dd58285129f522c22f23.jpg'
-         },
-        ])
-    }
-
   return (
     <div>
-      { props.users.map((user) => (
+      <div>
+        {props.slicedPages.map((page, index) => (
+          <span
+            key={index}
+            className={props.currentPage === page && classes.selectedPage}
+            onClick={() => {
+              props.onPageChanged(page);
+            }}
+          >
+            {page}
+          </span>
+        ))}
+      </div>
+      {props.users.map((user) => (
         <div key={user.id}>
           <span>
             <div>
-              <img alt="avatar" src={user.pgotoUrl} className={classes.photo} />
+              <NavLink to={`/profile/${user.id}`}>
+                <img
+                  alt="avatar"
+                  src={
+                    user.photos.small !== null ? user.photos.small : userPxoto
+                  }
+                  className={classes.photo}
+                />
+              </NavLink>
             </div>
             <div>
               {user.followed ? (
-                <button onClick={() => { props.unFollow(user.id) }}>Unfollow</button>
+                <button
+                  onClick={() => {
+                    userAPI.getUnFollow(user.id).then((data) => {
+                      if (data.resultCode === 0) {
+                        props.unFollow(user.id);
+                      }
+                    });
+                  }}
+                >
+                  Unfollow
+                </button>
               ) : (
-                <button onClick={() => { props.follow(user.id) }}>Follow</button>
+                <button
+                  onClick={() => {
+                    userAPI.getFollow(user.id).then((data) => {
+                      if (data.resultCode === 0) {
+                        props.follow(user.id);
+                      }
+                    });
+                  }}
+                >
+                  Follow
+                </button>
               )}
             </div>
           </span>
           <span>
             <span>
-              <div>{user.fullName}</div>
+              <div>{user.name}</div>
               <div>{user.status}</div>
             </span>
             <span>
-              <div>{user.location.country}</div>
-              <div>{user.location.sity}</div>
+              <div>{"user.location.country"}</div>
+              <div>{"user.location.sity"}</div>
             </span>
           </span>
         </div>
