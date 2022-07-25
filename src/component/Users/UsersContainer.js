@@ -1,33 +1,22 @@
 import React from "react";
 import Users from "./Users";
 import { connect } from 'react-redux';
-import { follow, setCurrentPage, setTotalCount, setUsers, toggleIsFetching, unFollow } from '../redux/reducer_Users';
+import { follow, getUsers, setCurrentPage, toggleIsFollowingProgress, unFollow } from '../redux/reducer_Users';
 import Loader from "../common/PreLoader/Loader";
-import { userAPI } from "../api/api";
+import { compose } from "redux";
+import { AuthRedirectComponent } from "../hoc/Redirect";
 
 class UsersContainer extends React.Component {
     /*   constructor(props) {
       super(props)
     } */
     componentDidMount() {
-        if (this.props.users.length === 0) {
-            this.props.toggleIsFetching(true)
-            userAPI.getUsers(this.props.currentPage, this.props.pageSize).then((data) => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(data.items);
-                this.props.setTotalCount(data.totalCount);
-
-            });
-        }
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
-        this.props.toggleIsFetching(true)
-        userAPI.getUsers(pageNumber, this.props.pageSize).then((data) => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(data.items)
-        });
+        this.props.getUsers(pageNumber, this.props.pageSize)
     };
     render() {
         const pagesCount = Math.ceil(
@@ -50,10 +39,10 @@ class UsersContainer extends React.Component {
                     slicedPages={slicedPages}
                     onPageChanged={this.onPageChanged}
                     currentPage={curP}
-                    selectedPage={this.props.selectedPage}
                     unFollow={this.props.unFollow}
                     follow={this.props.follow}
                     users={this.props.users}
+                    followingInProgress={this.props.followingInProgress}
                 />
             </>
         );
@@ -67,18 +56,20 @@ const mapStateToProps = (state) => ({
     pageSize: state.usersPage.pageSize,
     totalUserCount: state.usersPage.totalUserCount,
     currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching
+    isFetching: state.usersPage.isFetching,
+    followingInProgress: state.usersPage.followingInProgress
 })
-
 
 const dispatch = {
     follow,
     unFollow,
-    setUsers,
     setCurrentPage,
-    setTotalCount,
-    toggleIsFetching,
+    toggleIsFollowingProgress,
+    getUsers,
 }
 
-export default connect(mapStateToProps, dispatch)(UsersContainer)
+export default compose(
+    connect(mapStateToProps, dispatch),
+    AuthRedirectComponent
+)(UsersContainer)
 

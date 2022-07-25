@@ -2,8 +2,6 @@ import React from "react";
 import classes from "./User.module.css";
 import userPxoto from "../../assets/images/users.jpg";
 import { NavLink } from "react-router-dom";
-import { userAPI } from "../api/api";
-
 const Users = (props) => {
   return (
     <div>
@@ -11,7 +9,7 @@ const Users = (props) => {
         {props.slicedPages.map((page, index) => (
           <span
             key={index}
-            className={props.currentPage === page && classes.selectedPage}
+            className={props.currentPage === page ? classes.selectedPage : ''}
             onClick={() => {
               props.onPageChanged(page);
             }}
@@ -37,25 +35,15 @@ const Users = (props) => {
             <div>
               {user.followed ? (
                 <button
-                  onClick={() => {
-                    userAPI.getUnFollow(user.id).then((data) => {
-                      if (data.resultCode === 0) {
-                        props.unFollow(user.id);
-                      }
-                    });
-                  }}
+                  disabled={props.followingInProgress.some(id => id === user.id)}
+                  onClick={() => { props.unFollow(user.id) }}
                 >
                   Unfollow
                 </button>
               ) : (
                 <button
-                  onClick={() => {
-                    userAPI.getFollow(user.id).then((data) => {
-                      if (data.resultCode === 0) {
-                        props.follow(user.id);
-                      }
-                    });
-                  }}
+                  disabled={props.followingInProgress.some(id => id === user.id)}
+                  onClick={() => { props.follow(user.id) }}
                 >
                   Follow
                 </button>

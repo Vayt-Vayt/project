@@ -1,12 +1,10 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 import DialogItem from "./DialogItem/DialogsItem";
 import classes from "./Dialogs.module.css";
 import Message from "./Message/Message";
 
-
-
 const Dialogs = (props) => {
-
   const dialogsElement = props.dialogsData.map((dialog, index) => (
     <DialogItem key={index} name={dialog.name} id={dialog.id} />
   ));
@@ -15,15 +13,15 @@ const Dialogs = (props) => {
     <Message key={index} mess={message.mess} />
   ));
 
+  const onSentMessageClick = () => {
+    props.upduteNewMessegeBodyCeator();
+  };
 
-    const onSentMessageClick = () => {
-      props.upduteNewMessegeBody()
-    }
-
-    const onNewMessageChange = (e) => {
-     const body = e.target.value
-     props.sendMessege(body)
-    }
+  const onNewMessageChange = (e) => {
+    const body = e.target.value;
+    props.sendMessegeCeator(body);
+  };
+  
 
   return (
     <div className={classes.dialogs}>
@@ -32,19 +30,16 @@ const Dialogs = (props) => {
         <div>{messagesElement}</div>
         <div>
           <div>
-            <textarea 
-              placeholder="Enter you massege" 
+            <textarea
+              placeholder="Enter you massege"
               value={props.newMessageBody}
               onChange={onNewMessageChange}
-            > 
-            </textarea>
+            ></textarea>
           </div>
           <div>
-            <button onClick={onSentMessageClick}>
-              send
-            </button>
+            <button onClick={onSentMessageClick}>send</button>
           </div>
-        </div>  
+        </div>
       </div>
     </div>
   );

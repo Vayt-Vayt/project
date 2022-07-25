@@ -1,3 +1,4 @@
+import { userAPI } from "../api/api";
 
 
 const ADD_POST = 'ADD_POST';
@@ -18,12 +19,12 @@ const profilePageReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST:
             const text = { id: 5, message: state.newPostText, LikesCount: 0 }
-            return  {
+            return {
                 ...state,
                 postData: [...state.postData, text],
                 newPostText: ''
             }
-             
+
         case UPDATE_NEW_POST_TEXT:
             return {
                 ...state,
@@ -32,7 +33,7 @@ const profilePageReducer = (state = initialState, action) => {
         case SET_USER_PROFILE:
             return {
                 ...state,
-               profile : action.payload
+                profile: action.payload
             }
         default:
             return state;
@@ -50,9 +51,15 @@ export const postsCeator = (text) => ({
 })
 
 export const setUserProfile = (profile) => ({
-    type:SET_USER_PROFILE,
+    type: SET_USER_PROFILE,
     payload: profile
 })
 
 export default profilePageReducer;
+
+export const getUserProfile = (id) => (dispatch) => {
+    userAPI.getUser(id).then((data) => {
+        dispatch(setUserProfile(data))
+    });
+}
 

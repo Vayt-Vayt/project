@@ -1,4 +1,6 @@
 import { connect } from "react-redux";
+import { compose } from "redux";
+import { AuthRedirectComponent } from "../hoc/Redirect";
 import {
   sendMessegeCeator,
   upduteNewMessegeBodyCeator,
@@ -8,18 +10,14 @@ import Dialogs from "./Dialogs";
 const mapStateToProps = (state) => ({
   dialogsData: state.messagePageReducer.dialogsData,
   messageData: state.messagePageReducer.messageData,
-  newMessageBody: state.messagePageReducer.newMessageBody
+  newMessageBody: state.messagePageReducer.newMessageBody,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  upduteNewMessegeBody: () => {
-    dispatch(upduteNewMessegeBodyCeator());
-  },
-  sendMessege: (body) => {
-    dispatch(sendMessegeCeator(body));
-  },
-});
+// const RedirectDialogs = AuthRedirectComponent(Dialogs)
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+// const DialogsContainer = connect(mapStateToProps, { sendMessegeCeator, upduteNewMessegeBodyCeator })(RedirectDialogs);
 
-export default DialogsContainer;
+export default compose(
+  connect(mapStateToProps, { sendMessegeCeator, upduteNewMessegeBodyCeator }),
+  AuthRedirectComponent
+)(Dialogs);
