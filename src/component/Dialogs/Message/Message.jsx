@@ -1,25 +1,22 @@
 import React from "react";
+import { Field } from "redux-form";
+import { Textarea } from "../../common/FormsControls/FormsControls";
+import { maxLengthCreator, required } from "../../utils/validators/validator";
 import classes from "./Message.module.css";
 
+const maxLength100 = maxLengthCreator(100)
+
 const Message = (props) => {
-
-  // let newPostElement = React.createRef()
-
-    // const addPost = (event) => {
-    //     event.preventDefault()
-    //     let text = newPostElement.current.value
-    //     alert(text)
-    // }
 
   return (
     <div className={classes.message}>
       {props.mess}
-      {/* <form action="false" onSubmit={addPost}>
+      <form action="false" onSubmit={props.handleSubmit}>
         <div>
-          <textarea ref={newPostElement}></textarea>
+          <Field name={'message'}  component={Textarea} type='text' validate={[required, maxLength100]}/>
         </div>
-        <button type="sybmit">Add post</button>
-      </form> */}
+        <button>Add message</button>
+      </form>
     </div>
   );
 };

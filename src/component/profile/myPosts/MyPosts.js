@@ -1,6 +1,8 @@
 import React from 'react';
 import Posts from './post/Posts';
 import classes from './MyPost.module.css'
+import { reduxForm } from 'redux-form';
+import MyPostForm from './post/MyPostForm';
 
 
 
@@ -16,16 +18,9 @@ const MyPosts = (props) => {
         />
     )
 
-    let newPostElement = React.createRef()
 
-    const addPosts = (event) => {
-        event.preventDefault()
-        props.addPost()
-    }
-
-    const onPostChange = () => {
-        let text = newPostElement.current.value
-        props.updateNewPostText(text)
+    const addPost = (value) => {
+        props.addPostsCeator(value.post)
     }
 
     return (
@@ -34,19 +29,16 @@ const MyPosts = (props) => {
             <div>
                 <h3>New post</h3>
             </div>
-            <form action='false' onSubmit={addPosts}>
                 <div>
-                    <textarea 
-                        onChange={onPostChange} 
-                        ref={newPostElement}
-                        value={props.newPostText}
-                    />
+                    <ReducerMyPostForm onSubmit={addPost}/>
                 </div>
-                <button  type='sybmit'>Add post</button>
-            </form>
             {PostsElements}
         </div>
     );
 };
 
 export default MyPosts;
+
+const ReducerMyPostForm = reduxForm({
+    form: 'postForm'
+})(MyPostForm)

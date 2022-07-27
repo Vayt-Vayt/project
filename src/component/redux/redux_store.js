@@ -5,13 +5,15 @@ import profilePageReducer from './reducer_profilePage'
 import  reducerUsers from './reducer_Users'
 import authReducer from './auth_reducer';
 import  thunlMiddleweare from 'redux-thunk';
+import { reducer as formReducer} from 'redux-form'
 
 const reducers = combineReducers({
     profilePageReducer,
     messagePageReducer ,
     sadebarReducer,
     usersPage: reducerUsers,
-    auth: authReducer
+    auth: authReducer,
+    form: formReducer,
 });
 
 const store = createStore(reducers, applyMiddleware(thunlMiddleweare));

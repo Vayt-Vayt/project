@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { addPostsCeator, postsCeator } from '../../redux/reducer_profilePage';
+import { addPostsCeator } from '../../redux/reducer_profilePage';
 import MyPosts from './MyPosts';
             
 
@@ -8,15 +8,8 @@ const mapStateToProps = (state) => ({
     postData:state.profilePageReducer.postData, 
 })
 
-const mapDispatchToProps = (dispatch) => ({
-    updateNewPostText: (text) => {
-        dispatch(postsCeator(text))
-    },
-    addPost: () => {
-        dispatch(addPostsCeator())
-    },
-})
 
-const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
+
+const MyPostsContainer = connect(mapStateToProps, { addPostsCeator })(MyPosts)
 
 export default MyPostsContainer;
